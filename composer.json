@@ -1,0 +1,13 @@
+{
+    "name": "sorks/library",
+    "description": "php framework core class library",
+    "type": "library",
+    "license": "1.0",
+    "authors": [
+        {
+            "name": "sorks",
+            "email": "1055494751@qq.com"
+        }
+    ],
+    "require": {}
+}
