@@ -4,7 +4,11 @@ namespace s;
 
 class Loading
 {
-    static $classMap = [];
+    static $classMap    = [];
+    static $namespace   = [
+        's'     => ROOT.'/vendor/sorks/library/'
+    ];
+
     public static function register()
     {
         spl_autoload_register('s\\Loading::autoload', true, true);
@@ -12,8 +16,12 @@ class Loading
 
     public static function autoload($class)
     {
-        $classFile = ROOT.'/vendor/sorks/library/'.$class.'.php';
-        
+        list($path) = explode('\\', $class);
+        if (!isset(self::$namespace[$path])) {
+            self::$namespace[$path] = ROOT.'/';
+        }
+        $classFile = self::$namespace[$path].$class.'.php';
+
         if (!isset(self::$classMap[$classFile]) && is_file($classFile)) {
             require $classFile;
             self::$classMap[$classFile] = $classFile;
