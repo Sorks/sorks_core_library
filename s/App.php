@@ -4,7 +4,7 @@ namespace s;
 
 class App
 {
-    public function run()
+    public static function run()
     {
         $appPath = Env::get('app');
 
