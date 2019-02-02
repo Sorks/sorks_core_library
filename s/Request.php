@@ -40,11 +40,26 @@ class Request
 
     public static function param($key = '')
     {
-        if ($key == '') {
-            return $_POST;
-        } else {
-            return $_POST[$key];
+        if (empty($_POST)) {
+            return [];
         }
+
+        if ($key == '') {
+            $param = $_POST;
+        } else {
+            $param = $_POST[$key];
+        }
+
+        if (!is_array($param)) {
+            return htmlspecialchars($param);
+        }
+
+        array_walk_recursive($param, function(&$val, $key) {
+            $val = htmlspecialchars($val);
+            return $val;
+        });
+        
+        return $param;
     }
 
     public static function __callStatic($method, $params) {
