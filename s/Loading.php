@@ -6,7 +6,7 @@ class Loading
 {
     static $classMap    = [];
     static $namespace   = [
-        's'     => ROOT.'/vendor/sorks/library/'
+        's'     => ROOT.'vendor/sorks/library/'
     ];
 
     public static function register()
@@ -20,8 +20,7 @@ class Loading
         if (!isset(self::$namespace[$path])) {
             self::$namespace[$path] = ROOT.'/';
         }
-        $classFile = self::$namespace[$path].$class.'.php';
-
+        $classFile = str_replace('\\', '/', self::$namespace[$path].$class.'.php');
         if (!isset(self::$classMap[$classFile]) && is_file($classFile)) {
             require $classFile;
             self::$classMap[$classFile] = $classFile;
