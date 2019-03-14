@@ -4,13 +4,8 @@ namespace s;
 
 class Request
 {
-    public static function init()
-    {
-        $_GET = [];
-        $_REQUEST = [];
-    }
-
-    public static function ssl()
+    private static $route = null;
+    public function ssl()
     {
         if ($_SERVER['REQUEST_SCHEME'] == 'https') {
             return 'https';
@@ -19,7 +14,7 @@ class Request
         }
     }
 
-    public static function ip()
+    public function ip()
     {
         list($ip, $ipData) = ['', ['HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_FROM', 'REMOTE_ADDR']];
         foreach ($ipData as $v) {
@@ -33,21 +28,27 @@ class Request
         return $ip;
     }
 
-    public static function sessionId()
+    public function param($key = null, $type = 'param')
     {
-        return $_COOKIE['PHPSESSID'];
-    }
+        switch ($type) {
+            case 'get':
+                $request = $_GET;
+                break;
+            case 'post':
+                $request = $_POST;
+                break;
+            default :
+                $request = $_REQUEST;
+        }
 
-    public static function param($key = '')
-    {
-        if (empty($_POST)) {
+        if (empty($request)) {
             return [];
         }
 
-        if ($key == '') {
-            $param = $_POST;
+        if (is_null($key)) {
+            $param = $request;
         } else {
-            $param = $_POST[$key];
+            $param = $request[$key];
         }
 
         if (!is_array($param)) {
@@ -62,7 +63,37 @@ class Request
         return $param;
     }
 
-    public static function __callStatic($method, $params) {
-        return call_user_func_array([new Route, $method], $params);
+    public function get($key = null)
+    {
+        return $this->param($key, 'get');
+    }
+
+    public function post($key = null)
+    {
+        return $this->param($key, 'post');
+    }
+
+    public function module()
+    {
+        if (is_null(self::$route)) {
+            self::$route = new Route;
+        }
+        return self::$route->module;
+    }
+
+    public function controller()
+    {
+        if (is_null(self::$route)) {
+            self::$route = new Route;
+        }
+        return self::$route->ctrl;
+    }
+
+    public function action()
+    {
+        if (is_null(self::$route)) {
+            self::$route = new Route;
+        }
+        return self::$route->action;
     }
 }

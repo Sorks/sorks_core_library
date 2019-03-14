@@ -7,7 +7,7 @@ class App
     public static function run()
     {
         $appPath = Env::get('app');
-
+        
         // 加载应用公共文件
         $appCommonFile = $appPath.'/Common.php';
         if (is_file($appCommonFile)) {
@@ -28,7 +28,7 @@ class App
         }
 
         // 加载请求类
-        Request::init();
+        // Request::init();
         
         // 加载控制器
         Controller::init();

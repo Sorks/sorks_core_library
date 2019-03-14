@@ -4,7 +4,7 @@ namespace s;
 
 class Config
 {
-    public static function get($file, $key = '')
+    public function get($file, $key = '')
     {
         $module = Request::module();
         $moduleCanfPath = Env::get('app').'/'.$module.'/config/'.$file.'.php';
@@ -19,7 +19,7 @@ class Config
             }
         }
 
-        $filepath = Env::get('root').'/config/'.$file.'.php';
+        $filepath = Env::get('root').'config/'.$file.'.php';
         if ( is_file($filepath) ) {
             $read = include $filepath;
             if ($key === '') {

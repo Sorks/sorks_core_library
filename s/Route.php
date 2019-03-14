@@ -28,16 +28,18 @@ class Route
                 }
                 $i++;
             }
-    
-            $requrl = trim(substr($_SERVER['REQUEST_URI'], 0, strrpos($_SERVER['REQUEST_URI'], '/')), '/') ?: 'index';
+            
+            $requrl = str_replace('index.php', '', ltrim(substr($_SERVER['REQUEST_URI'], 0, strrpos($_SERVER['REQUEST_URI'], '/')), '/')) ?: 'index';
             if (isset($requrl) && isset($routes[$requrl])) {
                 $route = explode('/', $routes[$requrl]);
                 if (count($route) < 3) {
-                    throw new \Exception('路由表达式错误：'.$routes[$requrl]);
+                    throw new \Exception('路由表达式错误：'.$routes[$requrl].' 路由加载失败,未找到匹配的控制器方法');
                 }
                 $this->module = $route[0];
                 $this->ctrl = $route[1];
                 $this->action = $route[2];
+            } else {
+                throw new \Exception('路由表达式错误：'.$requrl.' 未找到匹配的路由');
             }
         } else {
             throw new \Exception('路由文件丢失');
@@ -60,18 +62,5 @@ class Route
         return $res;
     }
 
-    public function module()
-    {
-        return $this->module;
-    }
 
-    public function controller()
-    {
-        return $this->ctrl;
-    }
-
-    public function action()
-    {
-        return $this->action;
-    }
 }

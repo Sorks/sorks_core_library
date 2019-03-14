@@ -4,7 +4,7 @@ namespace s;
 
 class Env
 {
-    public static function get($key)
+    public function get($key)
     {
         $root = $_SERVER['DOCUMENT_ROOT'];
         switch ($key) {
@@ -12,16 +12,16 @@ class Env
                 return $root;
             break;
             case 'app':
-                return $root.'/app';
+                return $root.'app';
             break;
             case 'lib':
-                return $root.'/vendor/sorks/library';
+                return $root.'vendor/sorks/library';
             break;
             case 'static':
-                return $root.'/static';
+                return $root.'static';
             break;
             case 'route':
-                return $root.'/route';
+                return $root.'route';
             break;
             default:
                 return false;

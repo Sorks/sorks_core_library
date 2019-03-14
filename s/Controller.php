@@ -14,6 +14,7 @@ class Controller
         $ctrl = Request::controller();
         $action = Request::action();
         $ctrlFile = Env::get('app').'/'.$module.'/controller/'.$ctrl.'.php';
+
         $class = '\\app\\'.$module.'\\controller\\'.$ctrl;
 
         if (!in_array($class, self::$controllers)) {
