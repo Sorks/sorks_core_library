@@ -3,12 +3,14 @@
 namespace s;
 
 use ReflectionClass;
+use s\facade\Request;
+use s\facade\Env;
 
 class Controller
 {
-    private static $controllers = [];
+    private $controllers = [];
 
-    public static function init()
+    public function init()
     {
         $module = Request::module();
         $ctrl = Request::controller();
@@ -17,7 +19,7 @@ class Controller
 
         $class = '\\app\\'.$module.'\\controller\\'.$ctrl;
 
-        if (!in_array($class, self::$controllers)) {
+        if (!in_array($class, $this->controllers)) {
             if (!is_file($ctrlFile)) {
                 throw new \Exception('controller not exists：'.$ctrlFile);
                 return ;
@@ -35,8 +37,8 @@ class Controller
             }
 
             $controller = new $class;
-            self::$controllers[$class] = $controller;
+            $this->controllers[$class] = $controller;
         }
-        return call_user_func([self::$controllers[$class], $action]);
+        return call_user_func([$this->controllers[$class], $action]);
     }
 }

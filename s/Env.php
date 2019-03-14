@@ -6,7 +6,7 @@ class Env
 {
     public function get($key)
     {
-        $root = $_SERVER['DOCUMENT_ROOT'];
+        $root = ROOT;
         switch ($key) {
             case 'root':
                 return $root;
@@ -22,6 +22,9 @@ class Env
             break;
             case 'route':
                 return $root.'route';
+            break;
+            case 'config':
+                return $root.'config';
             break;
             default:
                 return false;

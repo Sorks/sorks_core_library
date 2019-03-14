@@ -93,4 +93,19 @@ class Session
         }
         return $val;
     }
+
+    public function delete($key = '')
+    {
+        if (empty($this->init)) {
+            $this->boot();
+        }
+
+        if (strpos($key, '.')) {
+            list($key1, $key2) = explode('.', $key);
+            unset($_SESSION[$key1][$key2]);
+        } else {
+            unset($_SESSION[$key]);
+        }
+        return $val;
+    }
 }

@@ -2,9 +2,13 @@
 
 namespace s;
 
+use s\facade\Request;
+use s\facade\Env;
+use s\facade\Controller;
+
 class App
 {
-    public static function run()
+    public function run()
     {
         $appPath = Env::get('app');
         

@@ -61,11 +61,8 @@ class Query
      */
     public function query($sql = '', $res = 'array')
     {
-        $stmt = $this->connection->query($this->selectSql);
-        if (!$this->viewSql) {
-            return $stmt->fetchAll($this->resultSet[$res]);
-        }
-        return $stmt->queryString;
+        $stmt = $this->connection->query($sql);
+        return $stmt->fetchAll($this->resultSet[$res]);
     }
 
     /**

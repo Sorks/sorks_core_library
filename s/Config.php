@@ -2,6 +2,9 @@
 
 namespace s;
 
+use s\facade\Env;
+use s\facade\Request;
+
 class Config
 {
     public function get($file, $key = '')
@@ -19,7 +22,7 @@ class Config
             }
         }
 
-        $filepath = Env::get('root').'config/'.$file.'.php';
+        $filepath = Env::get('config').'/'.$file.'.php';
         if ( is_file($filepath) ) {
             $read = include $filepath;
             if ($key === '') {

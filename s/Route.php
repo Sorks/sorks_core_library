@@ -62,5 +62,18 @@ class Route
         return $res;
     }
 
+    public function module()
+    {
+        return $this->module;
+    }
 
+    public function controller()
+    {
+        return $this->ctrl;
+    }
+
+    public function action()
+    {
+        return $this->action;
+    }
 }

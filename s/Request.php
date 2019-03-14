@@ -73,27 +73,31 @@ class Request
         return $this->param($key, 'post');
     }
 
-    public function module()
-    {
-        if (is_null(self::$route)) {
-            self::$route = new Route;
-        }
-        return self::$route->module;
+    public function __call($method, $params) {
+        return call_user_func_array([new Route, $method], $params);
     }
 
-    public function controller()
-    {
-        if (is_null(self::$route)) {
-            self::$route = new Route;
-        }
-        return self::$route->ctrl;
-    }
+    // public function module()
+    // {
+    //     if (is_null(self::$route)) {
+    //         self::$route = new Route;
+    //     }
+    //     return self::$route->module;
+    // }
 
-    public function action()
-    {
-        if (is_null(self::$route)) {
-            self::$route = new Route;
-        }
-        return self::$route->action;
-    }
+    // public function controller()
+    // {
+    //     if (is_null(self::$route)) {
+    //         self::$route = new Route;
+    //     }
+    //     return self::$route->ctrl;
+    // }
+
+    // public function action()
+    // {
+    //     if (is_null(self::$route)) {
+    //         self::$route = new Route;
+    //     }
+    //     return self::$route->action;
+    // }
 }
