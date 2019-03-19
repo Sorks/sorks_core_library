@@ -31,11 +31,10 @@ class Config
                 if (isset($read[$key])) {
                     return $read[$key];
                 } else {
-                    throw new \Exception('配置不存在：'.$file.'["'.$key.'"]');
+                    return null;
                 }
             }
         }
-
-        throw new \Exception('配置不存在：'.$file);
+        return null;
     }
 }
