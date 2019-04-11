@@ -357,6 +357,30 @@ class Query
     }
 
     /**
+     * 开启事务
+     */
+    public function transaction()
+    {
+        return $this->connection->beginTransaction();
+    }
+
+    /**
+     * 提交事务
+     */
+    public function commit()
+    {
+        return $this->connection->commit();
+    }
+
+    /**
+     * 事务回滚
+     */
+    public function rollBack()
+    {
+        return $this->connection->rollBack();
+    }
+    
+    /**
      * 准备写入的数据
      */
     private function data($data, $type = 'insert')
