@@ -29,7 +29,7 @@ class Route
                 $i++;
             }
             
-            $requrl = str_replace('index.php', '', ltrim(substr($_SERVER['REQUEST_URI'], 0, strrpos($_SERVER['REQUEST_URI'], '/')), '/')) ?: 'index';
+            $requrl = ltrim(ltrim($_SERVER['REQUEST_URI'], '/'), 'index.php/') ?: 'index';
             if (isset($requrl) && isset($routes[$requrl])) {
                 $route = explode('/', $routes[$requrl]);
                 if (count($route) < 3) {
