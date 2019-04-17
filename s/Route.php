@@ -2,6 +2,8 @@
 
 namespace s;
 
+use s\facade\Env;
+
 class Route
 {
     public $module;
