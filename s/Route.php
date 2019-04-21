@@ -38,7 +38,7 @@ class Route
                     throw new \Exception('路由表达式错误：'.$routes[$requrl].' 路由加载失败,未找到匹配的控制器方法');
                 }
                 $this->module = $route[0];
-                $this->ctrl = $route[1];
+                $this->ctrl = ucfirst($route[1]);
                 $this->action = $route[2];
             } else {
                 throw new \Exception('路由表达式错误：'.$requrl.' 未找到匹配的路由');

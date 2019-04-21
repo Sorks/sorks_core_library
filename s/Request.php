@@ -74,30 +74,20 @@ class Request
     }
 
     public function __call($method, $params) {
-        return call_user_func_array([new Route, $method], $params);
+        switch ($method) {
+            case 'module':
+                $class = 's\Route';
+                break;
+            case 'controller':
+                $class = 's\Route';
+                break;
+            case 'action':
+                $class = 's\Route';
+                break;
+            default:
+                throw new \Exception('call to undefined function: '.$method);
+                return ;
+        }
+        return call_user_func_array([new $class, $method], $params);
     }
-
-    // public function module()
-    // {
-    //     if (is_null(self::$route)) {
-    //         self::$route = new Route;
-    //     }
-    //     return self::$route->module;
-    // }
-
-    // public function controller()
-    // {
-    //     if (is_null(self::$route)) {
-    //         self::$route = new Route;
-    //     }
-    //     return self::$route->ctrl;
-    // }
-
-    // public function action()
-    // {
-    //     if (is_null(self::$route)) {
-    //         self::$route = new Route;
-    //     }
-    //     return self::$route->action;
-    // }
 }
